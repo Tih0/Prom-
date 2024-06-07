@@ -1,4 +1,4 @@
-import time, random
+import random
 import asyncio
 from playwright.async_api import async_playwright, expect
 
@@ -17,7 +17,7 @@ with open('adresses.txt') as f:
 
 async def faucet(proxy, user_agent, address, k):
     if k != 0:
-        delay = random.randint(10, 30)
+        delay = random.randint(39120, 39600)
         print(f'Delay:{delay}')
         await asyncio.sleep(delay)
 
@@ -34,11 +34,11 @@ async def faucet(proxy, user_agent, address, k):
         await page.wait_for_load_state()
         inputs = page.locator('input')
         await expect(inputs).to_be_visible()
-        await inputs.type('')
+        await inputs.type(address.strip())
         button = page.get_by_text("Get Tokens")
         await expect(button).to_be_visible()
         await button.click()
-        await asyncio.sleep(10)
+        await asyncio.sleep(30)
         await context.close()
         print(f'https://testnet.promscan.io/address/{address}')
 
